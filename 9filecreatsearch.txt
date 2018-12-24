@@ -1,0 +1,183 @@
+//author:shrutika//
+//roll no:203517//
+#include<iostream>
+#include<fstream>
+#include<iomanip>
+using namespace std;
+class items{
+private:
+	int Item_code=0, quantity=0, cost=0;
+	char Item_name[100];
+public:
+	void input_item();			//for input
+	void show_item();			//internal function called by display item function
+	void create_item();			//used for creating inventory file
+	void add_item();			// used to append to the list
+	void display_item();		// used to display the file contents
+	void search_item();			// used for searching a specific item in the list
+	void buy_item();
+};
+
+void items:: input_item(){
+	cout<<"Enter the name of the product:";
+	cin>>Item_name;
+	cout<<"Enter the code of the product:";
+	cin>>Item_code;
+	cout<<"Enter total number of product items present:";
+	cin>>quantity;
+	cout<<"Enter the cost of the product:";
+	cin>>cost;
+}
+
+void items::show_item(){
+
+	cout<<Item_name<<"\t    \t"<<Item_code<<"\t   \t"<<quantity<<"\t"<<cost<<endl;
+
+
+}
+
+void items::create_item(){
+	items i;
+	char ch;
+	fstream file;
+	file.open("Inventory.dat", ios::out | ios::binary);
+	do{
+		i.input_item();
+		file.write((char*)&i, sizeof(i));
+		cout<<"Do you want to add another item?";
+		cin>>ch;
+	}while(ch=='Y'|| ch=='y');
+	file.close();
+}
+
+void items::display_item(){
+	fstream file;
+	items i;
+	file.open("Inventory.dat",ios::in | ios::binary );
+	//file.read((char*)&i, sizeof(i));
+	cout<<"Name\t"<<"Item Code\t"<<"Quantity\t"<<"Cost"<<endl;
+	while(file.read((char *)&i, sizeof(i)))
+	{
+		i.show_item();
+		//file.read((char*)&i, sizeof(i));
+	}
+	file.close();
+}
+
+void items:: add_item(){
+       char ch;
+               items i;
+               fstream file;
+               file.write((char*)&i, sizeof(i));
+               file.open("Inventory.dat", ios::app | ios::binary);
+               do{
+                   i.input_item();
+                   cout<<"Add more?";
+                   cin>>ch;
+                   file.write((char*)&i, sizeof(i));
+               }
+               while(ch=='Y'||ch=='y');
+               file.close();
+   }
+
+void items:: search_item(){
+	int num;
+
+	cout<<"Enter item code to search:"<<endl;
+	cin>>num;
+	items i;
+	fstream fin;
+	fin.open("Inventory.dat", ios::in | ios:: binary);
+	while(fin.read((char*)&i, sizeof(i)))
+	{
+		try{
+		if(num==i.Item_code)
+		{
+			cout<<"Item Found!";
+			i.show_item();
+			break;
+			throw;
+		}
+		}
+		catch(...){
+			cout<<"Something went wrong please try again!";
+		}
+		/*else
+		{
+			cout<<"Item does not exist!";
+			break;
+		}*/
+	}
+	fin.close();
+}
+void items::buy_item(){
+	int num,quan,bill;
+	cout<<"Please enter the desired item code:"<<endl;
+	cin>>num;
+	fstream fio;
+	items i;
+	fio.open("Inventory.dat", ios::in |ios::out| ios::binary);
+	while(fio.read((char*)&i, sizeof(i))){
+		if(num==i.Item_code){
+			cout<<"Enter desired quantity:"<<endl;
+			i.show_item();
+			cin>>quan;
+			if(quan<i.quantity){
+				i.quantity= i.quantity-quan;
+				bill=quan*i.cost;
+				cout<<"Name\t"<<"Item Code\t"<<"Quantity\t"<<"Cost"<<endl;
+				i.show_item();
+				cout<<"Your account will be charged "<<bill<<endl;
+			}
+			else{
+				cout<<"Sorry, transaction was cancelled due to inavailability of stock."<<endl;
+			}
+		}
+
+	}
+	i.quantity= i.quantity-quan;
+	i.display_item();
+	fio.close();
+}
+int main(){
+
+	items a;
+	cout<<"\n********Inventory Handler********\n"<<endl;
+	do{
+	int op;
+	cout<<"\n MENU: \n 1.CREATE ITEM \n 2.ADD ITEM \n 3.DISPLAY ITEM \n 4. SEARCH ITEM \n 5.BUY ITEM"<<"\nEnter your Choice:"<<endl;
+	cin>>op;
+	switch(op){
+	case 1:
+		a.create_item();
+		a.display_item();
+		break;
+	case 2:
+		a.add_item();
+		a.display_item();
+		break;
+
+	case 3:
+		a.show_item();
+		a.display_item();
+		break;
+
+	case 4:
+		a.search_item();
+		break;
+
+	case 5:
+		a.buy_item();
+		break;
+	default:
+		cout<<"Wrong choice! Please try again!";
+		break;
+	}
+	}while(1);
+
+	return 0;
+}
+
+
+
+

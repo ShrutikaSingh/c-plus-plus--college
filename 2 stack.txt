@@ -1,0 +1,71 @@
+//author:shrutika//
+//roll no:203517//
+
+//Create a class template for stack.//
+
+#define MAX 10
+#include<iostream>
+using namespace std;
+template<class T>
+class stackm{
+private:
+	T arr[MAX];
+	int top;
+public:
+	T itm;
+	stackm(){	//default contructor
+		int i;
+		top=-1;
+		for(i=0;i<MAX;i++){
+			arr[i]=0;
+		}
+	}
+	void push(T num){
+		if(top==MAX-1){
+			cout<<"\nStack is full!\n";
+		}
+		else{
+			top++;
+			arr[top]=num;
+		}
+	}
+	void pop(){
+		if(top==-1){
+			cout<<"\nStack is empty!\n";
+		}
+		else{
+			arr[top]=0;
+			top--;
+		}
+	}
+	void display(){
+		int i;
+		for(i=0;i<MAX;i++){
+			cout<<arr[i];
+		}
+	}
+};
+int main(){
+	stackm<int> s;
+	int op;
+	do{
+		cout<<"\n*****Stack Operations*****\n";
+		cout<<"\n-:Menu:-\n1.Push\n2.Pop\n3.Display\n4.Exit\n";
+		cin>>op;
+		switch(op){
+		case 1:
+			int num;
+			cout<<"\nEnter number you want to push in stack:";
+			cin>>num;
+			s.push(num);
+			break;
+		case 2:
+			s.pop();
+			break;
+		case 3:
+			s.display();
+			break;
+		}
+	}while(op!=4);
+	return 0;
+}

@@ -1,0 +1,97 @@
+//author:shrutika//
+//roll no:203517//
+
+#include<iostream>
+using namespace std;
+class employee{
+private:
+	char name[100];
+	int id,age,income;
+	string city;
+public:
+	void accept(){
+		try{
+			cout<<"\nEnter Your ID:";
+			cin>>id;
+			cout<<"\nEnter your name:";
+			cin>>name;
+			try{
+			cout<<"\nEnter your age:";
+			cin>>age;
+					if(age<20 or age>30){
+						throw 10;
+					}
+					else{
+						cout<<"Verified!";
+					}
+			}catch(int x){
+				if(age<20){
+					cout<<"You're too to young!";
+					throw;
+				}else{
+					cout<<"You're too old!";
+					throw;
+				}
+			}
+			try{
+				cout<<"\nEnter you're salary:";
+				cin>>income;
+				if(income<25000 or income>50000){
+					throw 1.1;
+				}
+				else{
+					cout<<"Verified!";
+				}
+			}catch(double y){
+				if(income<25000){
+					cout<<"Poor boii!";
+					throw;
+				}else{
+					cout<<"Less Poor boii!";
+					throw;
+				}
+			}
+			try{
+				cout<<"\nEnter your City:";
+				cin>>city;
+				if(city=="Pune" or city=="Mumbai" ){
+					cout<<"Verified!";
+				}else{
+
+					throw 'c';
+				}
+			}catch(char c){
+				cout<<"City not supported!";
+				throw;
+			}
+		}
+		catch(...){
+			cout<<"An unexpected error has occured!";
+		}
+	}
+	void display(){
+		cout<<"\nName:"<<name;
+		cout<<"\nID:"<<id;
+		cout<<"\nSalary:"<<income;
+		cout<<"\nAge:"<<age<<"\n";
+	}
+};
+int main(){
+	int ch;
+	cout<<"\n*****Employee Handler*****\n";
+	employee e;
+	do{
+		cout<<"\n-:Menu:-\n1.Accept\n2.Display\n3.Exit\n";
+		cin>>ch;
+		switch(ch){
+		case 1:
+			e.accept();
+			break;
+		case 2:
+			e.display();
+			break;
+		}
+	}while(ch!=3);
+	return 0;
+}
+

@@ -1,0 +1,37 @@
+
+//author:shrutika
+//Create a class template for vector
+#include<iostream>
+#include<vector>
+#include<list>
+using namespace std;
+
+int main(){
+	int i;
+	int array[10]={1,2,3,4,5,6,7,8,9,0};
+	vector <int> v1(array, array+10);
+	vector<int> v2;
+	v2.push_back(6);		//element daala
+	v2.push_back(4);		//element daala
+	for(i=0;i<v2.size();i++){		//showing all elements
+	cout<<v2.at(i)<<" ";
+	}
+	cout<<"\n";
+	for(i=0;i<v1.size();i++){
+		cout<<v1.at(i)<<" ";			//notice them round brackets bish
+	}
+	cout<<"\n";
+	cout<<v1.size()<<" ";
+	cout<<v2.size()<<" ";
+	v1.clear();
+	for(i=0;i<v1.size();i++){			//would not execute since v1 is empty
+		cout<<"After Clearing"<<v1.at(i)<<" ";
+		}
+	cout<<"\nAfter Clearing Vector 1\n";
+	v1.swap(v2);
+	for(i=0;i<v1.size();i++){
+			cout<<v1.at(i)<<" ";
+			}
+		cout<<"\nAfter swapping with Vector 2";
+	return 0;
+}

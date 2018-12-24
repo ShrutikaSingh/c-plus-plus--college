@@ -1,0 +1,115 @@
+//author:shrutika//
+//roll no:203517//
+
+#include<iostream>
+#include<fstream>
+#include<iomanip>
+using namespace std;
+class student{
+private:
+	int roll=0,height=0,standard=0;
+	char fname[100],lname[100];
+public:
+	void create_student();
+	void accept_student();
+	void delete_student();
+	void add_student();
+	void search_student();
+	void sort_student();
+	void display_student();
+	void display();
+};
+void student::accept_student(){
+	cout<<"\nEnter First Name:"<<endl;
+	cin>>fname;
+	cout<<"\nEnter Last Name:"<<endl;
+	cin>>lname;
+	cout<<"Enter Roll:"<<endl;
+	cin>>roll;
+	cout<<"Enter Standard:"<<endl;
+	cin>>standard;
+	cout<<"Enter Height:"<<endl;
+	cin>>height;
+}
+void student:: create_student(){
+	fstream file;
+	char i;
+	student e;
+	file.open("Database.dat", ios::out | ios::binary);
+	do{
+		e.accept_student();
+		file.write((char*)&e,sizeof(e));
+		cout<<"Continue?";
+		cin>>i;
+	}while(i=='y' || i=='Y');
+	file.close();
+}
+void student:: add_student(){
+	fstream file;
+	student e;
+	char i;
+	file.open("Database.dat",ios:: app | ios::binary);
+	do{
+		e.accept_student();
+		file.write((char*)&e,sizeof(e));
+		cout<<"Add more??";
+		cin>>i;
+	}while(i=='y'||i=='Y');
+	file.close();
+}
+void student:: display(){
+	cout<<fname<<" "<<lname<<"\t"<<roll<<"\t   "<<height<<"\t    "<<standard<<endl;
+}
+void student::display_student(){
+	fstream file;
+	student e;
+	cout<<"Name\t"<<"        Roll No\t"<<"Height\t"<<"Standard\n";
+	file.open("Database.dat",ios::in | ios::binary );
+	while(file.read((char*)&e, sizeof(e))){
+		e.display();
+		//file.read((char*)&i, sizeof(i));
+	}
+	file.close();
+}
+void student::search_student(){
+	int i;
+	fstream file;
+	student e;
+	cout<<"\nEnter the roll Number of the student:";
+	cin>>i;
+	file.open("Database.dat",ios::in | ios::binary);
+	while(file.read((char*)&e,sizeof(e))){
+	if(e.roll==i){
+		cout<<"Student Found!\n";
+		cout<<"Name\t"<<"        Roll No\t"<<"Height\t"<<"Standard\n";
+		e.display();
+	}else{
+		cout<<"Sorry no records found!\n";
+	}
+	}
+	file.close();
+}
+
+int main(){
+student e;
+int op;
+do{
+	cout<<"\n*****File Handle*****\n";
+	cout<<"\n-:Menu:-\n1.Create Database\n2.Add To Database\n3.Search Student\n4.Show All Students\n5.Exit\n";
+	cin>>op;
+	switch(op){
+	case 1:
+		e.create_student();
+		break;
+	case 2:
+		e.add_student();
+		break;
+	case 3:
+		e.search_student();
+		break;
+	case 4:
+		e.display_student();
+		break;
+	}
+}while(op!=5);}
+

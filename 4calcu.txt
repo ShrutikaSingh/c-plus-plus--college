@@ -1,0 +1,140 @@
+
+//author:shrutika//
+//roll no:203517//
+//Design a class Template to implement a mathematical calculator.
+
+Code:
+#include<iostream>
+using namespace std;
+template<class T>
+class calc{
+public:
+	void add(T i, T j){
+		T c,a,b;
+		a=i;
+		b=j;
+		c=a+b;
+		cout<<"Addition:"<<c;
+	}
+	void sub(T i, T j){
+		T c,a,b;
+		a=i;
+		b=j;
+		c=a-b;
+		cout<<"\nSubtraction:"<<c;
+
+	}
+	void mult(T i, T j){
+		T c,a,b;
+		a=i;
+		b=j;
+		c=a*b;
+		cout<<"\nMultiplication:"<<c;
+
+	}
+	void div(T i, T j){
+		T c,a,b;
+		a=i;
+		b=j;
+		c=a/b;
+		cout<<"\nDivision:"<<c;
+
+	}
+};
+int main(){
+	calc<int> ob1;
+	calc<float> ob2;
+	int op,ch;
+	cout<<"\n****Calculator****\n";
+	do{
+		int i,j;
+		float k,l;
+		cout<<"\n-:Menu:-\n1.Integer Mode\n2.Float Mode\n3.Exit\n";
+		cin>>op;
+		switch(op){
+		case 1:
+			do{
+				cout<<"\n-:Menu:-\n1.Add\n2.Subtract\n3.Multiply\n4.Divide\n5.Change Mode\n";
+				cin>>ch;
+				switch(ch){
+				case 1:
+					cout<<"Enter First Number:\n";
+					cin>>i;
+					cout<<"Enter Second Number:\n";
+					cin>>j;
+					ob1.add(i,j);
+					break;
+				case 2:
+
+					cout<<"Enter First Number:\n";
+					cin>>i;
+					cout<<"Enter Second Number:\n";
+					cin>>j;
+					ob1.sub(i,j);
+					break;
+				case 3:
+
+					cout<<"Enter First Number:\n";
+					cin>>i;
+					cout<<"Enter Second Number:\n";
+					cin>>j;
+					ob1.mult(i,j);
+					break;
+				case 4:
+
+					cout<<"Enter First Number:\n";
+					cin>>i;
+					cout<<"Enter Second Number:\n";
+					cin>>j;
+					ob1.div(i,j);
+					break;
+
+				}
+			}while(ch!=5);
+			break;
+		case 2:
+			do{
+
+				cout<<"\n-:Menu:-\n1.Add\n2.Subtract\n3.Multiply\n4.Divide\n5.Change Mode\n";
+				cin>>ch;
+				switch(ch){
+				case 1:
+
+					cout<<"Enter First Number:\n";
+					cin>>k;
+					cout<<"Enter Second Number:\n";
+					cin>>l;
+					ob2.add(k,l);
+					break;
+				case 2:
+
+					cout<<"Enter First Number:\n";
+					cin>>k;
+					cout<<"Enter Second Number:\n";
+					cin>>l;
+					ob2.sub(k,l);
+					break;
+				case 3:
+
+					cout<<"Enter First Number:\n";
+					cin>>k;
+					cout<<"Enter Second Number:\n";
+					cin>>l;
+					ob2.mult(k,l);
+					break;
+				case 4:
+
+					cout<<"Enter First Number:\n";
+					cin>>k;
+					cout<<"Enter Second Number:\n";
+					cin>>l;
+					ob2.div(k,l);
+					break;
+
+				}
+			}while(ch!=5);
+			break;
+		}
+	}while(op!=3);
+	return 0;
+}

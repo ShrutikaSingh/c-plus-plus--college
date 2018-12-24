@@ -1,0 +1,134 @@
+//author:shrutika//
+//roll no:203517//
+
+//Program to create; display and search in list of student using STL.
+Code:
+#include<iostream>
+#include<list>
+#include<algorithm>
+using namespace std;
+class stud{
+private:
+    char Name[50];
+	int roll,standard,height,weight;
+public:
+
+	bool operator <(stud const& ob1){
+		return roll<ob1.roll;
+	}
+	bool operator ==(stud const& ob2){
+		return roll==ob2.roll;
+	}
+	void accept(){
+		cout<<"\nEnter Name:";
+		cin>>Name;
+		cout<<"\nEnter Roll No.:";
+		cin>>roll;
+		cout<<"\nEnter Standard:";
+		cin>>standard;
+		cout<<"\nEnter Height:";
+		cin>>height;
+		cout<<"\nEnter Weight:";
+		cin>>weight;
+	}
+
+	void display(){
+		cout<<"\nEnter Name:"<<Name;
+		cout<<"\nEnter Roll No.:"<<roll;
+		cout<<"\nEnter Standard:"<<standard;
+		cout<<"\nEnter Height:"<<height;
+		cout<<"\nEnter Weight:"<<weight<<endl;
+	}
+	void searchit(int num);
+	void remove_bet();
+	void accept_bet();
+};
+stud s;
+list<stud> l;
+list<stud>::iterator it;
+void stud:: accept_bet(){
+	int pos,i;
+	cout<<"\nEnter the Desired position:";
+	cin>>pos;
+	it=l.begin();
+	for(i=0;i<pos;i++){
+		it++;
+	}
+	s.accept();
+	l.insert(it,s);
+}
+void stud:: remove_bet(){
+	int i,pos;
+	cout<<"\nEnter the desired position you want to delete:\n";
+	cin>>pos;
+	it=l.begin();
+	for(i=0;i<pos-1;i++){
+		it++;
+	}
+	l.erase(it);
+}
+void stud:: searchit(int num){
+	s.roll=num;
+	it= find(l.begin(),l.end(),s);
+	if(it!=l.end()){
+		cout<<"Student Exists";
+	}
+	else{
+		cout<<"Sorry student not found!";
+	}
+}
+int main(){
+	cout<<"\n*****Student Inventory*****\n";
+	int op,ch;
+	do{
+		cout<<"Menu\n1.Push Front\n2.Push Back\n3.Accept Between\n4.Pop front\n5.Pop Back\n6.Display Stack\n7.Sort Stack\n8.Search\n9.Remove Element\n";
+		cin>>ch;
+		switch(ch){
+		case 1:
+			//push front
+			s.accept();
+			l.push_front(s);
+			break;
+		case 2:
+			//push back
+			s.accept();
+			l.push_back(s);
+			break;
+		case 3:
+			//accept between
+			s.accept_bet();
+			break;
+		case 4:
+			//Pop front
+			l.pop_front();
+			break;
+		case 5:
+			//pop back
+			l.pop_back();
+			break;
+		case 6:
+			//Display stack
+			for(it=l.begin();it!=l.end();it++){
+				it->display();
+			}
+			break;
+		case 7:
+			//sort array
+			l.sort();			//inbuilt function... operator '<' was overloaded in order for this to work
+			break;
+		case 8:
+			//search
+			int num;
+			cout<<"\nEnter wards roll no.:";
+			cin>>num;
+			s.searchit(num);
+			break;
+		case 9:
+			//remove element
+			s.remove_bet();
+			break;
+		}
+	}while(ch!=10);
+	return 0;
+}
+

@@ -1,0 +1,121 @@
+#include<iostream>
+#include<list>
+#include<algorithm>
+using namespace std;
+class employee{
+private:
+	char name[50];
+	int age,salary,id;
+public:
+	bool operator <(employee const& ob1){
+		return id<ob1.id;
+	}
+	bool operator ==(employee const& ob2){
+		return id==ob2.id;
+	}
+	void accept(){
+		cout<<"\nEnter Name:";
+		cin>>name;
+		cout<<"\nEnter ID:";
+		cin>>id;
+		cout<<"\nEnter Age:";
+		cin>>age;
+		cout<<"\nEnter Salary:";
+		cin>>salary;
+	}
+	void display(){
+		cout<<"\nName:"<<name;
+		cout<<"\nID:"<<id;
+		cout<<"\nAge:"<<age;
+		cout<<"\nSalary:"<<salary<<"\n";
+	}
+	void search();
+	void accept_bet();
+	void remove_bet();
+	void display_list();
+};
+employee e;
+list <employee> s;
+list <employee>::iterator it;
+void employee::accept_bet(){
+	int pos, i;
+	cout<<"At what position do you want the input?";
+	cin>>pos;
+	it=s.begin();
+	for(i=0;i<pos;i++){
+		it++;
+	}
+	e.accept();
+	s.insert(it,e);
+}
+void employee::remove_bet(){
+	int pos, i;
+	cout<<"Enter the employee id to be deleted:";
+	cin>>pos;
+	it=s.begin();
+	for(i=0;i<pos-1;i++){
+		it++;
+	}
+	s.erase(it);
+}
+void employee::display_list(){
+	for(it=s.begin();it!=s.end();it++){
+		it->display();
+	}
+}
+void employee::search(){
+	int num;
+	cout<<"\nEnter the id:";
+	cin>>num;
+	e.id=num;
+	it= find(s.begin(),s.end(),e);
+	if(it!=s.end()){
+		cout<<"\nEmo exists";
+	}
+	else{
+		cout<<"\nEmployee doesn't exist";
+	}
+	it->display();
+}
+
+int main(){
+	cout<<"\n*****Employee Inventory*****\n";
+	int op,ch;
+	do{
+		cout<<"\n-:Menu:-\n1.Push Front\n2.Push Back\n3.Accept Between\n4.Remove Between\n5.Search\n6.Sort\n7.Pop Front\n8.Pop Back\n9.Display List\n10.Exit\n";
+		cin>>ch;
+		switch(ch){
+		case 1:
+			e.accept();
+			s.push_front(e);
+			break;
+		case 2:
+			e.accept();
+			s.push_back(e);
+			break;
+		case 3:
+			e.accept_bet();
+			break;
+		case 4:
+			e.remove_bet();
+			break;
+		case 5:
+			e.search();
+			break;
+		case 6:
+			s.sort();
+			break;
+		case 7:
+			s.pop_front();
+			break;
+		case 8:
+			s.pop_back();
+			break;
+		case 9:
+			e.display_list();
+			break;
+		}
+	}while(ch!=10);
+	return 0;
+}
+
